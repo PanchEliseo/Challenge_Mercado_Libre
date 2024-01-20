@@ -85,9 +85,12 @@ fun ButtonSearch(valueTextField: String, navController: NavHostController) {
         modifier = Modifier
             .fillMaxWidth()
     ) {
-        Button(enabled = valueTextField.isNotEmpty(),
+        Button(
+            enabled = valueTextField.isNotEmpty(),
             onClick = {
-                navController.navigate(route = ResultScreen.Result.route)
+                navController.navigate(
+                    route = ResultScreen.Result.searchText(valueTextField)
+                )
             }) {
             Text(text = stringResource(id = R.string.label_search))
         }
