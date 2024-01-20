@@ -1,4 +1,4 @@
-package com.mercadolibre.challenge.presentation.resultSearch
+package com.mercadolibre.challenge.presentation.searchResult
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -19,16 +19,23 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mercadolibre.challenge.R
+import com.mercadolibre.challenge.presentation.searchResult.components.SearchResultContent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ResultSearchView(navController: NavHostController = rememberNavController()) {
+fun SearchResultView(
+    navController: NavHostController = rememberNavController(),
+    textSearch: String,
+) {
     Scaffold(
         topBar = {
             DefaultTopBar(navController)
         },
         content = {
-            ResultSearchContent(it)
+            SearchResult(
+                paddingValues = it,
+                navController = navController,
+                product = textSearch)
         }
     )
 }
@@ -49,14 +56,4 @@ fun DefaultTopBar(navController: NavHostController? = null) {
         },
         colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Yellow)
     )
-}
-
-@Composable
-fun ResultSearchContent(paddingValues: PaddingValues) {
-    Column(
-        modifier = Modifier
-            .padding(paddingValues)
-    ) {
-        Text(text = "Aqui mostrar resultado de busqueda")
-    }
 }
