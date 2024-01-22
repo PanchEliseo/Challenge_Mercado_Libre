@@ -54,7 +54,7 @@ data class Results(
     @SerializedName("seller")
     val seller: Sheller? = null,
     @SerializedName("attributes")
-    val attributes: List<Attributes>? = null,
+    val attributes: List<Attributes>,
     @SerializedName("installments")
     val installments: Installments? = null,
     @SerializedName("winner_item_id")
@@ -67,5 +67,4 @@ data class Results(
     val promotions: List<String>? = null,
     @SerializedName("inventory_id")
     val inventoryId: String? = null
-
-)
+) : java.io.Serializable

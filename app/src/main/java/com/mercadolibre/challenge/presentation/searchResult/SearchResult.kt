@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mercadolibre.challenge.R
+import com.mercadolibre.challenge.presentation.components.DefaultTopBar
 import com.mercadolibre.challenge.presentation.searchResult.components.SearchResultContent
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -29,7 +30,11 @@ fun SearchResultView(
 ) {
     Scaffold(
         topBar = {
-            DefaultTopBar(navController)
+            DefaultTopBar(
+                title = R.string.result_search,
+                navController = navController,
+                upAvailable = true
+            )
         },
         content = {
             SearchResult(
@@ -37,23 +42,5 @@ fun SearchResultView(
                 navController = navController,
                 product = textSearch)
         }
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun DefaultTopBar(navController: NavHostController? = null) {
-    TopAppBar(
-        title = {
-            Text(text = stringResource(id = R.string.result_search))
-        },
-        navigationIcon = {
-            IconButton(onClick = { navController?.popBackStack() }) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "TopBar")
-            }
-        },
-        colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Yellow)
     )
 }
