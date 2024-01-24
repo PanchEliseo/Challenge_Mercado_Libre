@@ -2,6 +2,9 @@ package com.mercadolibre.challenge.domain.retrofit.search
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Represent the attributes of search response
+ */
 data class Attributes(
     @SerializedName("id")
     val id: String? = null,

@@ -2,6 +2,9 @@ package com.mercadolibre.challenge.domain.retrofit.search
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Represent the Shipping of search response
+ */
 data class Shipping(
     @SerializedName("store_pick_up")
     val storePickUp: Boolean? = null,

@@ -69,4 +69,32 @@ class SearchResultViewModelTest {
             assertEquals(viewModel.searchResultViewState.value, awaitItem())
         }
     }
+
+    @Test
+    fun `should emit failure with product when service response is Exception`() = runTest {
+        coEvery {
+            searchUseCase.search(any())
+        } returns Response.Failure(Exception("Exception"))
+        viewModel.searchProducts("Motorola")
+        coVerify {
+            searchUseCase.search(any())
+        }
+        viewModel.searchResultViewState.test {
+            assertEquals(viewModel.searchResultViewState.value, awaitItem())
+        }
+    }
+
+    @Test
+    fun `should emit failure with product when service response is Exception null`() = runTest {
+        coEvery {
+            searchUseCase.search(any())
+        } returns Response.Failure(null)
+        viewModel.searchProducts("Motorola")
+        coVerify {
+            searchUseCase.search(any())
+        }
+        viewModel.searchResultViewState.test {
+            assertEquals(viewModel.searchResultViewState.value, awaitItem())
+        }
+    }
 }

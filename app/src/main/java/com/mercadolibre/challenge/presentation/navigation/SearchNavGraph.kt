@@ -10,6 +10,9 @@ import com.mercadolibre.challenge.domain.retrofit.search.Results
 import com.mercadolibre.challenge.presentation.detail.DetailView
 import com.mercadolibre.challenge.presentation.searchResult.SearchResultView
 
+/**
+ * Extension function for navigation composable expects [navController] to navigation
+ */
 fun NavGraphBuilder.searchNavGraph(navController: NavHostController) {
     navigation(
         route = Graph.RESULT,
@@ -22,22 +25,27 @@ fun NavGraphBuilder.searchNavGraph(navController: NavHostController) {
             })
         ) {
             it.arguments?.getString("textSearch")?.let {text ->
-                SearchResultView(navController, text)
+                SearchResultView(
+                    onBack = { navController.popBackStack() },
+                    onDetailProduct = { detail ->
+                        navController.currentBackStackEntry?.savedStateHandle?.set("Detail", detail)
+                        navController.navigate(route = SearchNavigation.Detail.route)
+                    },
+                    textSearch = text,
+                )
             }
         }
 
         composable(route = SearchNavigation.Detail.route) {
             val result = navController.previousBackStackEntry?.savedStateHandle?.get<Results>("Detail")
             result?.let {
-                DetailView(navController, it)
+                DetailView(
+                    onBack = {
+                        navController.popBackStack()
+                    },
+                    results = it
+                )
             }
         }
     }
-}
-
-sealed class SearchNavigation(val route: String) {
-    object Result: SearchNavigation(route = "result/search/{textSearch}") {
-        fun searchText(textSearch: String) = "result/search/$textSearch"
-    }
-    object Detail: SearchNavigation(route = "detail/search/{detailProduct}")
 }

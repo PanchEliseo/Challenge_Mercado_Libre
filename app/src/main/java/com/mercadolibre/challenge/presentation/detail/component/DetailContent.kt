@@ -22,6 +22,10 @@ import coil.request.ImageRequest
 import com.mercadolibre.challenge.R
 import com.mercadolibre.challenge.domain.retrofit.search.Results
 
+/**
+ * This composable expects [paddingValues] to padding content in view, [results] object with result
+ * of search
+ */
 @Composable
 fun DetailContent(
     paddingValues: PaddingValues,

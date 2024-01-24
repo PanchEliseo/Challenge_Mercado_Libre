@@ -3,7 +3,6 @@ package com.mercadolibre.challenge.presentation.searchResult
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mercadolibre.challenge.domain.model.Response
-import com.mercadolibre.challenge.domain.retrofit.search.SearchResponse
 import com.mercadolibre.challenge.domain.use_case.search.SearchUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,12 +10,24 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * [SearchResultViewModel] holds information about search result of product. It also knows to call
+ * service based in search product
+ * @param searchUseCase The use case to call service
+ */
 @HiltViewModel
 class SearchResultViewModel @Inject constructor(private val searchUseCase: SearchUseCase): ViewModel() {
 
+    /**
+     * Search result state
+     */
     private val _searchResultViewState: MutableStateFlow<UIState> = MutableStateFlow(UIState.Loading)
     val searchResultViewState = _searchResultViewState.asStateFlow()
 
+    /**
+     * Search product in service
+     * @param product The product to search
+     */
     fun searchProducts(product: String) {
         viewModelScope.launch {
             _searchResultViewState.emit(UIState.Loading)
@@ -32,10 +43,4 @@ class SearchResultViewModel @Inject constructor(private val searchUseCase: Searc
             }
         }
     }
-}
-
-sealed class UIState {
-    object Loading: UIState()
-    data class Success(val result: SearchResponse): UIState()
-    data class Failure(val message: String): UIState()
 }

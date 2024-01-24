@@ -9,13 +9,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.navigation.NavHostController
 import com.mercadolibre.challenge.domain.retrofit.search.Results
 
+/**
+ * This composable expects [paddingValues] to padding content in screen, [onDetailProduct] lambda
+ * that triggers to send detail product UI, [listResult] this list result of search after call to
+ * service
+ */
 @Composable
 fun SearchResultContent(
     paddingValues: PaddingValues,
-    navController: NavHostController,
+    onDetailProduct:(detail: Results) -> Unit = {},
     listResult: List<Results>,
 ) {
     LazyColumn(
@@ -27,7 +31,10 @@ fun SearchResultContent(
         items(
             items = listResult
         ) {result ->
-            ItemSearchResult(navController = navController, results = result)
+            ItemSearchResult(
+                onDetailProduct = onDetailProduct,
+                results = result
+            )
         }
     }
 }
