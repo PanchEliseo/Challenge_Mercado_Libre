@@ -1,6 +1,5 @@
 package com.mercadolibre.challenge.presentation.navigation
 
-import androidx.compose.animation.core.updateTransition
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -14,10 +13,10 @@ import com.mercadolibre.challenge.presentation.searchResult.SearchResultView
 fun NavGraphBuilder.searchNavGraph(navController: NavHostController) {
     navigation(
         route = Graph.RESULT,
-        startDestination = ResultScreen.Result.route
+        startDestination = SearchNavigation.Result.route
     ) {
         composable(
-            route = ResultScreen.Result.route,
+            route = SearchNavigation.Result.route,
             arguments = listOf(navArgument("textSearch"){
                 type = NavType.StringType
             })
@@ -27,7 +26,7 @@ fun NavGraphBuilder.searchNavGraph(navController: NavHostController) {
             }
         }
 
-        composable(route = ResultScreen.Detail.route) {
+        composable(route = SearchNavigation.Detail.route) {
             val result = navController.previousBackStackEntry?.savedStateHandle?.get<Results>("Detail")
             result?.let {
                 DetailView(navController, it)
@@ -36,9 +35,9 @@ fun NavGraphBuilder.searchNavGraph(navController: NavHostController) {
     }
 }
 
-sealed class ResultScreen(val route: String) {
-    object Result: ResultScreen(route = "result/search/{textSearch}") {
+sealed class SearchNavigation(val route: String) {
+    object Result: SearchNavigation(route = "result/search/{textSearch}") {
         fun searchText(textSearch: String) = "result/search/$textSearch"
     }
-    object Detail: ResultScreen(route = "detail/search/{detailProduct}")
+    object Detail: SearchNavigation(route = "detail/search/{detailProduct}")
 }

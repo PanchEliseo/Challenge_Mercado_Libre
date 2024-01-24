@@ -7,6 +7,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.navigation.NavHostController
 import com.mercadolibre.challenge.domain.retrofit.search.Results
 
@@ -20,6 +22,7 @@ fun SearchResultContent(
         modifier = Modifier
             .padding(paddingValues)
             .wrapContentSize()
+            .semantics { contentDescription = "Search Result View" }
     ) {
         items(
             items = listResult

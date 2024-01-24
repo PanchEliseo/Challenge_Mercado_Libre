@@ -18,14 +18,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.mercadolibre.challenge.R
 import com.mercadolibre.challenge.domain.retrofit.search.Results
-import com.mercadolibre.challenge.presentation.navigation.ResultScreen
+import com.mercadolibre.challenge.presentation.navigation.SearchNavigation
 
 @Composable
 fun ItemSearchResult(
@@ -35,9 +36,10 @@ fun ItemSearchResult(
     Card(
         modifier = Modifier
             .padding(5.dp)
+            .semantics { contentDescription = "Item Result" }
             .clickable {
                 navController.currentBackStackEntry?.savedStateHandle?.set("Detail", results)
-                navController.navigate(route = ResultScreen.Detail.route)
+                navController.navigate(route = SearchNavigation.Detail.route)
             },
         elevation = CardDefaults.cardElevation(4.dp),
         shape = RoundedCornerShape(10.dp),
@@ -65,7 +67,10 @@ fun ItemSearchResult(
                 modifier = Modifier
                     .padding(top = 5.dp, start = 5.dp)
             ) {
-                Text(text = results.title)
+                Text(
+                    text = results.title,
+                    style = TextStyle(color = Color.Black)
+                )
             }
         }
     }

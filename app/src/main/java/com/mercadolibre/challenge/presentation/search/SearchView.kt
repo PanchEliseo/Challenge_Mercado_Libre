@@ -3,6 +3,7 @@ package com.mercadolibre.challenge.presentation.search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -17,7 +18,7 @@ fun SearchView(
     navController: NavHostController,
     viewModel: SearchViewModel = hiltViewModel()
 ) {
-    val valueTextField = viewModel.textValueChange.observeAsState(initial = "")
+    val valueTextField = viewModel.textValueChange.collectAsState("")
     Scaffold(
         topBar = {
             DefaultTopBar(

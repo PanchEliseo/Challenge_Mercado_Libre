@@ -9,9 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.navigation.NavHostController
 import com.mercadolibre.challenge.R
-import com.mercadolibre.challenge.presentation.navigation.ResultScreen
+import com.mercadolibre.challenge.presentation.navigation.SearchNavigation
 
 @Composable
 fun ButtonSearch(valueTextField: String, navController: NavHostController) {
@@ -23,9 +25,11 @@ fun ButtonSearch(valueTextField: String, navController: NavHostController) {
     ) {
         Button(
             enabled = valueTextField.isNotEmpty(),
+            modifier = Modifier
+                .semantics { contentDescription = "Button Search" },
             onClick = {
                 navController.navigate(
-                    route = ResultScreen.Result.searchText(valueTextField)
+                    route = SearchNavigation.Result.searchText(valueTextField)
                 )
             }) {
             Text(text = stringResource(id = R.string.label_search))
