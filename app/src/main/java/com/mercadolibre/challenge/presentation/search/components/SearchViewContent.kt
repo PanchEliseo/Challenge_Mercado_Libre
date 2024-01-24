@@ -14,6 +14,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.mercadolibre.challenge.R
 import com.mercadolibre.challenge.presentation.search.SearchViewModel
@@ -25,12 +27,15 @@ fun SearchViewContent(paddingValues: PaddingValues, viewModel: SearchViewModel, 
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .padding(paddingValues = paddingValues)
+            .semantics { contentDescription = "Search Screen" }
     ) {
         OutlinedTextField(
             value = valueTextField,
             onValueChange = {
                 viewModel.onChangeValueChange(it)
             },
+            maxLines = 1,
+            singleLine = true,
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Search,
@@ -42,6 +47,7 @@ fun SearchViewContent(paddingValues: PaddingValues, viewModel: SearchViewModel, 
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+                .semantics { contentDescription = "Label Search" }
         )
     }
 }
