@@ -2,12 +2,18 @@ package com.mercadolibre.challenge.domain.retrofit
 
 import com.mercadolibre.challenge.domain.retrofit.search.SearchResponse
 import com.mercadolibre.challenge.utils.API_BODY
+import com.mercadolibre.challenge.utils.SEARCH_TEXT
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.Query
 
+/**
+ * ApiService for search product
+ */
 interface SearchService {
-    @Headers("Content-Type: application/json")
+    /**
+     * Function to call search service
+     * @param search product text for search
+     */
     @GET(API_BODY)
-    suspend fun search(@Query("q") search: String): SearchResponse
+    suspend fun search(@Query(SEARCH_TEXT) search: String): SearchResponse
 }

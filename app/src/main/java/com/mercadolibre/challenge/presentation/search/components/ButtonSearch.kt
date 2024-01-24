@@ -11,12 +11,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.navigation.NavHostController
 import com.mercadolibre.challenge.R
-import com.mercadolibre.challenge.presentation.navigation.SearchNavigation
 
+/**
+ * This composable expects [valueTextField] text for validate enable or disable button,
+ * [onSearch] lambda that triggers to next view and call service
+ */
 @Composable
-fun ButtonSearch(valueTextField: String, navController: NavHostController) {
+fun ButtonSearch(
+    valueTextField: String,
+    onSearch:(product: String) -> Unit = {}
+) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -27,11 +32,8 @@ fun ButtonSearch(valueTextField: String, navController: NavHostController) {
             enabled = valueTextField.isNotEmpty(),
             modifier = Modifier
                 .semantics { contentDescription = "Button Search" },
-            onClick = {
-                navController.navigate(
-                    route = SearchNavigation.Result.searchText(valueTextField)
-                )
-            }) {
+            onClick = { onSearch.invoke(valueTextField) }
+        ) {
             Text(text = stringResource(id = R.string.label_search))
         }
     }

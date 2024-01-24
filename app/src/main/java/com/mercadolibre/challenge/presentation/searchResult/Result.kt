@@ -5,16 +5,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
+import com.mercadolibre.challenge.domain.retrofit.search.Results
 import com.mercadolibre.challenge.presentation.searchResult.components.ProgressBar
 import com.mercadolibre.challenge.presentation.searchResult.components.SearchError
 import com.mercadolibre.challenge.presentation.searchResult.components.SearchResultContent
 
+/**
+ * This composable expects [paddingValues] to padding content in view, [product] the product to search,
+ * [onDetailProduct] lambda that triggers to send detail product UI, [viewModel] that holds information
+ * about search
+ */
 @Composable
 fun SearchResult(
     paddingValues: PaddingValues,
-    navController: NavHostController,
     product: String,
+    onDetailProduct:(detail: Results) -> Unit = {},
     viewModel: SearchResultViewModel = hiltViewModel()
 ) {
     LaunchedEffect(Unit) {
@@ -29,13 +34,13 @@ fun SearchResult(
             searchResponse.result.results?.let { list ->
                 SearchResultContent(
                     paddingValues = paddingValues,
-                    navController = navController,
+                    onDetailProduct = onDetailProduct,
                     listResult = list,
                 )
             }
         }
         is UIState.Failure -> {
-            SearchError(searchResponse.message)
+            SearchError(searchResponse.message, paddingValues)
         }
     }
 }

@@ -22,15 +22,17 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.mercadolibre.challenge.domain.retrofit.search.Results
-import com.mercadolibre.challenge.presentation.navigation.SearchNavigation
 
+/**
+ * This composable expects [onDetailProduct] lambda that triggers to send detail product UI,
+ * [results] result of search what content detail information of product
+ */
 @Composable
 fun ItemSearchResult(
-    navController: NavHostController,
+    onDetailProduct:(detail: Results) -> Unit = {},
     results: Results,
 ) {
     Card(
@@ -38,8 +40,7 @@ fun ItemSearchResult(
             .padding(5.dp)
             .semantics { contentDescription = "Item Result" }
             .clickable {
-                navController.currentBackStackEntry?.savedStateHandle?.set("Detail", results)
-                navController.navigate(route = SearchNavigation.Detail.route)
+                onDetailProduct.invoke(results)
             },
         elevation = CardDefaults.cardElevation(4.dp),
         shape = RoundedCornerShape(10.dp),

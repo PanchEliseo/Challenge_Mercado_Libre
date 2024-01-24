@@ -4,18 +4,22 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import com.mercadolibre.challenge.R
 import com.mercadolibre.challenge.presentation.components.DefaultTopBar
 import com.mercadolibre.challenge.presentation.search.components.ButtonSearch
 import com.mercadolibre.challenge.presentation.search.components.SearchViewContent
 
+/**
+ * This composable expects [onBack] lambda that triggers to back view, [onSearch] lambda that
+ * triggers to send product to search and next view, [viewModel] that holds information about search
+ * view
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchView(
-    navController: NavHostController,
+    onBack:() -> Unit = {},
+    onSearch:(product: String) -> Unit = {},
     viewModel: SearchViewModel = hiltViewModel()
 ) {
     val valueTextField = viewModel.textValueChange.collectAsState("")
@@ -23,7 +27,7 @@ fun SearchView(
         topBar = {
             DefaultTopBar(
                 title = R.string.search_label,
-                navController = navController,
+                onBack = onBack,
                 upAvailable = false
             )
         },
@@ -37,7 +41,7 @@ fun SearchView(
         bottomBar = {
             ButtonSearch(
                 valueTextField = valueTextField.value,
-                navController = navController
+                onSearch = onSearch,
             )
         }
     )

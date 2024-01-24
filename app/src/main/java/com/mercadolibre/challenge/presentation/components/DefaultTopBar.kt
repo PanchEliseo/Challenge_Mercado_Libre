@@ -11,14 +11,17 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavHostController
 import com.mercadolibre.challenge.R
 
+/**
+ * This composable expects [title] text to show in bar, [onBack] lambda that triggers to back view,
+ * [upAvailable] value to show or no the back icon.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DefaultTopBar(
     title: Int = R.string.label_search,
-    navController: NavHostController? = null,
+    onBack:() -> Unit = {},
     upAvailable: Boolean = false,
 ) {
     TopAppBar(
@@ -27,7 +30,7 @@ fun DefaultTopBar(
         },
         navigationIcon = {
             if (upAvailable) {
-                IconButton(onClick = { navController?.popBackStack() }) {
+                IconButton(onClick = onBack ) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
                         contentDescription = "TopBar")

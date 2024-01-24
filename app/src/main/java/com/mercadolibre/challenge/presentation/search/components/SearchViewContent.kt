@@ -20,9 +20,17 @@ import androidx.compose.ui.unit.dp
 import com.mercadolibre.challenge.R
 import com.mercadolibre.challenge.presentation.search.SearchViewModel
 
+/**
+ * This composable expects [paddingValues] to padding content in view, [viewModel] that holds
+ * information about search view, [valueTextField] text to search
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchViewContent(paddingValues: PaddingValues, viewModel: SearchViewModel, valueTextField: String) {
+fun SearchViewContent(
+    paddingValues: PaddingValues,
+    viewModel: SearchViewModel,
+    valueTextField: String
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier

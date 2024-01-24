@@ -15,9 +15,15 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+/**
+ * ApiModule with initialize Retrofit. Providers for ApiServices, Repositories and UseCases
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiModule {
+    /**
+     * Provider for loggingInterceptor
+     */
     @Singleton
     @Provides
     fun providesHttpLoggingInterceptor() = HttpLoggingInterceptor()
@@ -25,6 +31,10 @@ object ApiModule {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
+    /**
+     * Provider for HttpClient
+     * @param httpLoggingInterceptor The http logging interceptor
+     */
     @Singleton
     @Provides
     fun providesOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
@@ -33,6 +43,10 @@ object ApiModule {
             .addInterceptor(httpLoggingInterceptor)
             .build()
 
+    /**
+     * Provider for build retrofit
+     * @param okHttpClient The http client
+     */
     @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
@@ -41,14 +55,26 @@ object ApiModule {
         .client(okHttpClient)
         .build()
 
+    /**
+     * Provider for search service with retrofit
+     * @param retrofit The retrofit instance
+     */
     @Singleton
     @Provides
     fun provideApiService(retrofit: Retrofit): SearchService = retrofit.create(SearchService::class.java)
 
+    /**
+     * Provider for repository
+     * @param service The service instance
+     */
     @Singleton
     @Provides
     fun provideSearchRepository(service: SearchService) = SearchRepositoryImp(service)
 
+    /**
+     * Provider for use case
+     * @param repository The repository instance
+     */
     @Singleton
     @Provides
     fun provideSearchUseCase(repository: SearchRepositoryImp) = SearchUseCase(
