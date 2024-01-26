@@ -3,9 +3,7 @@ package com.mercadolibre.challenge
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
@@ -13,7 +11,6 @@ import androidx.compose.ui.test.performTextInput
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.testing.TestNavHostController
-import com.mercadolibre.challenge.domain.model.Response
 import com.mercadolibre.challenge.domain.retrofit.search.Results
 import com.mercadolibre.challenge.presentation.navigation.RootNavGraph
 import com.mercadolibre.challenge.presentation.navigation.SearchNavigation
@@ -77,10 +74,8 @@ class MainActivityTest {
                 }
             }
         }
-        if (results.isNotEmpty()) {
-            composeTestRule.onNodeWithContentDescription("Search Result View")
-                .assertIsDisplayed()
-        }
+        composeTestRule.onNodeWithContentDescription("Search Result View")
+            .assertIsDisplayed()
     }
 
     private fun navigateToResultSearch() {
