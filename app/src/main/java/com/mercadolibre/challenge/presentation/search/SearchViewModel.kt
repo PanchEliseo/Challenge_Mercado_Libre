@@ -23,7 +23,11 @@ class SearchViewModel @Inject constructor(): ViewModel() {
      * @param newTextValueChange value change
      */
     fun onChangeValueChange(newTextValueChange: String) {
-        _textValueChange.value = newTextValueChange
+        if (newTextValueChange.matches(Regex("^[a-zA-Z0-9_][a-zA-Z0-9_ ]*[a-zA-Z0-9_]*$"))) {
+            _textValueChange.value = newTextValueChange
+        } else {
+            _textValueChange.value = ""
+        }
     }
 
 }

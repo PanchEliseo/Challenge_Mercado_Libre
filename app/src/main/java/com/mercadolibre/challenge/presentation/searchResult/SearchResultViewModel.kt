@@ -1,7 +1,9 @@
 package com.mercadolibre.challenge.presentation.searchResult
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mercadolibre.challenge.domain.model.RequestSearch
 import com.mercadolibre.challenge.domain.model.Response
 import com.mercadolibre.challenge.domain.use_case.search.SearchUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,7 +33,11 @@ class SearchResultViewModel @Inject constructor(private val searchUseCase: Searc
     fun searchProducts(product: String) {
         viewModelScope.launch {
             _searchResultViewState.emit(UIState.Loading)
-            when(val response = searchUseCase.search(product)) {
+            val request = RequestSearch.RequestBuilder(product)
+                .anotherParameter("Prueba")
+                .build()
+            Log.i("Request", request.toString())
+            when(val response = searchUseCase.search(request)) {
                 is Response.Success -> {
                     _searchResultViewState.emit(UIState.Success(response.data))
                 }

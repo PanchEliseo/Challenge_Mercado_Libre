@@ -3,6 +3,8 @@ package com.mercadolibre.challenge.presentation.searchResult.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +24,7 @@ fun SearchError(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .padding(paddingValues)
+            .fillMaxSize()
     ){
         Text(text = textError)
     }
