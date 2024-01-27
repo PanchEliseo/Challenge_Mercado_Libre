@@ -11,6 +11,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.sp
 import com.mercadolibre.challenge.R
 
 /**
@@ -26,7 +27,10 @@ fun DefaultTopBar(
 ) {
     TopAppBar(
         title = {
-            Text(text = stringResource(id = title))
+            Text(
+                text = stringResource(id = title),
+                fontSize = 18.sp
+            )
         },
         navigationIcon = {
             if (upAvailable) {
