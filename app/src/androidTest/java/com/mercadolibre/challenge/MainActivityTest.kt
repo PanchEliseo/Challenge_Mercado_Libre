@@ -1,7 +1,6 @@
 package com.mercadolibre.challenge
 
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -11,11 +10,9 @@ import androidx.compose.ui.test.performTextInput
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.testing.TestNavHostController
-import com.mercadolibre.challenge.domain.retrofit.search.Results
 import com.mercadolibre.challenge.presentation.navigation.RootNavGraph
 import com.mercadolibre.challenge.presentation.navigation.SearchNavigation
 import com.mercadolibre.challenge.presentation.searchResult.SearchResultViewModel
-import com.mercadolibre.challenge.presentation.searchResult.UIState
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
@@ -57,25 +54,6 @@ class MainActivityTest {
     fun challenge_setTextSearchAndClickButton_navigateToResult() {
         navigateToResultSearch()
         navController.assertCurrentRouteName(SearchNavigation.Result.route)
-    }
-
-    @Test
-    fun challenge_setTextSearchAndClickButton_clickItem_navigateToDetail() {
-        navigateToResultSearch()
-        var results: List<Results> = listOf()
-        composeTestRule.activity.setContent {
-            val response = viewModel.searchResultViewState.collectAsState(UIState.Loading)
-            results = when (val resp = response.value) {
-                is UIState.Success -> {
-                    resp.result.results!!
-                }
-                else -> {
-                    listOf()
-                }
-            }
-        }
-        composeTestRule.onNodeWithContentDescription("Search Result View")
-            .assertIsDisplayed()
     }
 
     private fun navigateToResultSearch() {

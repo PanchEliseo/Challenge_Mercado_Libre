@@ -1,10 +1,10 @@
 package com.mercadolibre.challenge.presentation.searchResult
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mercadolibre.challenge.domain.model.RequestSearch
 import com.mercadolibre.challenge.domain.model.Response
+import com.mercadolibre.challenge.domain.retrofit.search.SearchResponse
 import com.mercadolibre.challenge.domain.use_case.search.SearchUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,7 +23,7 @@ class SearchResultViewModel @Inject constructor(private val searchUseCase: Searc
     /**
      * Search result state
      */
-    private val _searchResultViewState: MutableStateFlow<UIState> = MutableStateFlow(UIState.Loading)
+    private val _searchResultViewState: MutableStateFlow<Response<SearchResponse>> = MutableStateFlow(Response.Loading)
     val searchResultViewState = _searchResultViewState.asStateFlow()
 
     /**
@@ -32,21 +32,10 @@ class SearchResultViewModel @Inject constructor(private val searchUseCase: Searc
      */
     fun searchProducts(product: String) {
         viewModelScope.launch {
-            _searchResultViewState.emit(UIState.Loading)
             val request = RequestSearch.RequestBuilder(product)
                 .anotherParameter("Prueba")
                 .build()
-            Log.i("Request", request.toString())
-            when(val response = searchUseCase.search(request)) {
-                is Response.Success -> {
-                    _searchResultViewState.emit(UIState.Success(response.data))
-                }
-                is Response.Failure -> {
-                    _searchResultViewState.emit(UIState.Failure(response.exception?.message ?: "Error en el servicio"))
-                }
-
-                else -> {}
-            }
+            _searchResultViewState.emit(searchUseCase.search(request))
         }
     }
 }

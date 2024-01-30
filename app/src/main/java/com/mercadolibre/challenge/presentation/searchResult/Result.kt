@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.mercadolibre.challenge.domain.model.Response
 import com.mercadolibre.challenge.domain.retrofit.search.Results
 import com.mercadolibre.challenge.presentation.searchResult.components.ProgressBar
 import com.mercadolibre.challenge.presentation.searchResult.components.SearchError
@@ -25,13 +26,13 @@ fun SearchResult(
     LaunchedEffect(Unit) {
         viewModel.searchProducts(product)
     }
-    val response = viewModel.searchResultViewState.collectAsState(initial = UIState.Loading)
+    val response = viewModel.searchResultViewState.collectAsState(initial = Response.Loading)
     when (val searchResponse = response.value) {
-        UIState.Loading -> {
+        Response.Loading -> {
             ProgressBar()
         }
-        is UIState.Success -> {
-            searchResponse.result.results?.let { list ->
+        is Response.Success -> {
+            searchResponse.data.results?.let { list ->
                 SearchResultContent(
                     paddingValues = paddingValues,
                     onDetailProduct = onDetailProduct,
@@ -39,8 +40,10 @@ fun SearchResult(
                 )
             }
         }
-        is UIState.Failure -> {
-            SearchError(searchResponse.message, paddingValues)
+        is Response.Failure -> {
+            SearchError(searchResponse.exception?.message!!, paddingValues)
         }
+
+        else -> {}
     }
 }

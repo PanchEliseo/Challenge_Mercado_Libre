@@ -1,5 +1,6 @@
 package com.mercadolibre.challenge.domain.use_case.search
 
+import com.mercadolibre.challenge.domain.model.RequestSearch
 import com.mercadolibre.challenge.domain.repository.SearchRepository
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
@@ -12,7 +13,8 @@ class SearchTest {
     @Test
     fun invokeSearchUseCase() = runTest {
         val search = Search(repository)
-        search.invoke("")
+        val request = RequestSearch.RequestBuilder("")
+        search.invoke(request.build())
     }
 
 }
