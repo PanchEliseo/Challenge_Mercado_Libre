@@ -19,7 +19,7 @@ class SearchViewModel @Inject constructor(): ViewModel() {
     val textValueChange = _textValueChange.asStateFlow()
 
     /**
-     * set the text for product to search on TextField
+     * Set the text for product to search on TextField
      * @param newTextValueChange value change
      */
     fun onChangeValueChange(newTextValueChange: String) {
