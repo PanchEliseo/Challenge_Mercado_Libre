@@ -5,18 +5,19 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import com.mercadolibre.challenge.R
 import com.mercadolibre.challenge.domain.retrofit.search.Results
+import com.mercadolibre.challenge.presentation.model.SearchModel
 import com.mercadolibre.challenge.presentation.components.DefaultTopBar
 
 /**
  * This composable expects [onBack] lambda that triggers back UI, [onDetailProduct] lambda
- * that triggers to send detail product UI [textSearch] string that search in service
+ * that triggers to send detail product UI [model] SearchModel that search in service
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchResultView(
     onBack:() -> Unit = {},
     onDetailProduct:(detail: Results) -> Unit = {},
-    textSearch: String,
+    model: SearchModel,
 ) {
     Scaffold(
         topBar = {
@@ -30,7 +31,7 @@ fun SearchResultView(
             SearchResult(
                 paddingValues = it,
                 onDetailProduct = onDetailProduct,
-                product = textSearch)
+                model = model)
         }
     )
 }

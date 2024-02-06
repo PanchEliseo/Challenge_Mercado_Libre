@@ -14,15 +14,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import com.mercadolibre.challenge.R
+import com.mercadolibre.challenge.presentation.model.SearchModel
 
 /**
- * This composable expects [valueTextField] text for validate enable or disable button,
+ * This composable expects [model] data class with text search and site id,
  * [onSearch] lambda that triggers to next view and call service
  */
 @Composable
 fun ButtonSearch(
-    valueTextField: String,
-    onSearch:(product: String) -> Unit = {}
+    model: SearchModel,
+    onSearch:(model: SearchModel) -> Unit = {}
 ) {
     Column(
         verticalArrangement = Arrangement.Center,
@@ -31,10 +32,12 @@ fun ButtonSearch(
             .fillMaxWidth()
     ) {
         Button(
-            enabled = valueTextField.isNotEmpty(),
+            enabled = model.search.isNotEmpty(),
             modifier = Modifier
                 .semantics { contentDescription = "Button Search" },
-            onClick = { onSearch.invoke(valueTextField) },
+            onClick = {
+                onSearch.invoke(model)
+            },
             colors = ButtonDefaults.buttonColors(Color.Blue)
         ) {
             Text(text = stringResource(id = R.string.label_search))

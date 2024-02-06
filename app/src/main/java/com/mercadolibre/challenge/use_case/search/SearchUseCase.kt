@@ -17,7 +17,7 @@ class SearchUseCase @Inject constructor(private val repository: SearchRepository
      * @param request The data class with request to search
      */
     suspend operator fun invoke(request: RequestSearch): Response<SearchResponse> {
-        when (val response = repository.search(request.product)) {
+        when (val response = repository.search(request)) {
             is Response.Success -> {
                 val data = response.data.results ?: emptyList()
                 return if (data.isNotEmpty()) {

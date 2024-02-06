@@ -10,18 +10,18 @@ class RequestSearch(builder: RequestBuilder) {
      * Product for search
      */
     val product: String
-    private val anotherParameter: String?
+    val siteId: String
 
     /**
      * Initialize values
      */
     init {
         this.product = builder.product
-        this.anotherParameter = builder.anotherParameter
+        this.siteId = builder.siteId
     }
 
     override fun toString(): String {
-        return "Request: $product - $anotherParameter"
+        return "Request: $product - $siteId"
     }
 
     /**
@@ -33,13 +33,13 @@ class RequestSearch(builder: RequestBuilder) {
         /**
          * Another param
          */
-        var anotherParameter: String? = null
+        var siteId: String = ""
 
         /**
          * Set another param
          */
-        fun anotherParameter(anotherParameter: String?): RequestBuilder {
-            this.anotherParameter = anotherParameter
+        fun siteId(anotherParameter: String): RequestBuilder {
+            this.siteId = anotherParameter
             return this
         }
 

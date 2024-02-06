@@ -1,6 +1,7 @@
 package com.mercadolibre.challenge.domain.repository
 
 import com.mercadolibre.challenge.data.repository.SearchRepositoryImp
+import com.mercadolibre.challenge.domain.model.RequestSearch
 import com.mercadolibre.challenge.domain.model.Response
 import com.mercadolibre.challenge.domain.retrofit.SearchService
 import io.mockk.coEvery
@@ -18,10 +19,12 @@ class SearchRepositoryImpTest {
 
     @Test
     fun `should emit result when service response is success`() = runTest {
-        val response = repositoryImp.search("Motorola")
+        val responseBuilder = RequestSearch.RequestBuilder("Motorola")
+        responseBuilder.siteId("MLM")
+        val response = repositoryImp.search(product = responseBuilder.build())
 
         coVerify {
-            service.search(any())
+            service.search(any(), any())
         }
         val resp = when (response){
             is Response.Success -> {
@@ -38,10 +41,12 @@ class SearchRepositoryImpTest {
 
     @Test
     fun `should emit empty when service response is success`() = runTest {
-        val response = repositoryImp.search("")
+        val responseBuilder = RequestSearch.RequestBuilder("")
+        responseBuilder.siteId("")
+        val response = repositoryImp.search(responseBuilder.build())
 
         coVerify {
-            service.search(any())
+            service.search(any(), any())
         }
         val resp = when (response){
             is Response.Success -> {
@@ -58,9 +63,11 @@ class SearchRepositoryImpTest {
     @Test
     fun `should emit empty when service response exception`() = runTest {
         coEvery {
-            service.search(any())
+            service.search(any(), any())
         } throws Exception("Exception")
-        val resp = when (val response = repositoryImp.search("")){
+        val responseBuilder = RequestSearch.RequestBuilder("")
+        responseBuilder.siteId("")
+        val resp = when (val response = repositoryImp.search(responseBuilder.build())){
             is Response.Failure -> {
                 response.exception?.message
             }
@@ -70,7 +77,7 @@ class SearchRepositoryImpTest {
             }
         }
         coVerify {
-            service.search(any())
+            service.search(any(), any())
         }
         assertEquals("Exception", resp)
     }

@@ -7,4 +7,5 @@
     <string name="label_price">Precio: $%s</string>
     <string name="label_know">Lo que tienes que saber de este producto</string>
     <string name="label_processor">Procesador: %s</string>
+    <string name="label_site_id">Site Id</string>
 </resources>

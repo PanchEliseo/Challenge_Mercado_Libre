@@ -41,7 +41,7 @@ class SearchResultViewModelTest {
         coEvery {
             searchFacade.searchUseCase(any())
         } returns Response.Success(SearchResponse())
-        viewModel.searchProducts("Motorola")
+        viewModel.searchProducts(product = "Motorola", siteId = "MLM")
         coVerify {
             searchFacade.searchUseCase(any())
         }
@@ -55,7 +55,7 @@ class SearchResultViewModelTest {
         coEvery {
             searchFacade.searchUseCase(any())
         } returns Response.Success(SearchResponse())
-        viewModel.searchProducts("")
+        viewModel.searchProducts("", "")
         coVerify {
             searchFacade.searchUseCase(any())
         }
@@ -69,7 +69,7 @@ class SearchResultViewModelTest {
         coEvery {
             searchFacade.searchUseCase(any())
         } returns Response.Failure(Exception())
-        viewModel.searchProducts("")
+        viewModel.searchProducts("", "")
         coVerify {
             searchFacade.searchUseCase(any())
         }
@@ -83,7 +83,7 @@ class SearchResultViewModelTest {
         coEvery {
             searchFacade.searchUseCase(any())
         } returns Response.Failure(Exception("Exception"))
-        viewModel.searchProducts("Motorola")
+        viewModel.searchProducts("Motorola", "MLM")
         coVerify {
             searchFacade.searchUseCase(any())
         }
@@ -97,7 +97,7 @@ class SearchResultViewModelTest {
         coEvery {
             searchFacade.searchUseCase(any())
         } returns Response.Failure(null)
-        viewModel.searchProducts("Motorola")
+        viewModel.searchProducts("Motorola", "MLM")
         coVerify {
             searchFacade.searchUseCase(any())
         }

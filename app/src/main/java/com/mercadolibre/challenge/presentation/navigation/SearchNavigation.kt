@@ -8,13 +8,7 @@ sealed class SearchNavigation(val route: String) {
     /**
      * Represent the route for search result
      */
-    object Result: SearchNavigation(route = "result/search/{textSearch}") {
-        /**
-         * Function to share parameter in composable
-         * @param textSearch The text to share
-         */
-        fun searchText(textSearch: String) = "result/search/$textSearch"
-    }
+    object Result: SearchNavigation(route = "result/search/{modelSearch}")
 
     /**
      * Represent the route for detail product

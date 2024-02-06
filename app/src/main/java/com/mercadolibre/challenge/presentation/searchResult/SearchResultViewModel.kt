@@ -30,10 +30,11 @@ class SearchResultViewModel @Inject constructor(private val searchFacade: Search
      * Search product in service
      * @param product The product to search
      */
-    fun searchProducts(product: String) {
+    fun searchProducts(product: String, siteId: String) {
         viewModelScope.launch {
+            _searchResultViewState.emit(Response.Loading)
             val request = RequestSearch.RequestBuilder(product)
-                .anotherParameter("Prueba")
+                .siteId(siteId.uppercase())
                 .build()
             _searchResultViewState.emit(searchFacade.searchUseCase(request))
         }
