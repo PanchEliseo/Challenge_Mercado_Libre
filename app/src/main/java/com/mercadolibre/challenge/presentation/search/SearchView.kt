@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mercadolibre.challenge.R
+import com.mercadolibre.challenge.presentation.model.SearchModel
 import com.mercadolibre.challenge.presentation.components.DefaultTopBar
 import com.mercadolibre.challenge.presentation.search.components.ButtonSearch
 import com.mercadolibre.challenge.presentation.search.components.SearchViewContent
@@ -19,10 +20,11 @@ import com.mercadolibre.challenge.presentation.search.components.SearchViewConte
 @Composable
 fun SearchView(
     onBack:() -> Unit = {},
-    onSearch:(product: String) -> Unit = {},
+    onSearch:(model: SearchModel) -> Unit = {},
     viewModel: SearchViewModel = hiltViewModel()
 ) {
     val valueTextField = viewModel.textValueChange.collectAsState("")
+    val valueSiteId = viewModel.textSiteId.collectAsState("")
     Scaffold(
         topBar = {
             DefaultTopBar(
@@ -35,13 +37,17 @@ fun SearchView(
             SearchViewContent(
                 paddingValues = it,
                 viewModel = viewModel,
-                valueTextField = valueTextField.value
+                valueTextField = valueTextField.value,
+                valueSiteId = valueSiteId.value,
             )
         },
         bottomBar = {
             ButtonSearch(
-                valueTextField = valueTextField.value,
                 onSearch = onSearch,
+                model = SearchModel(
+                    siteId = valueSiteId.value,
+                    search = valueTextField.value,
+                )
             )
         }
     )

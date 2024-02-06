@@ -19,6 +19,12 @@ class SearchViewModel @Inject constructor(): ViewModel() {
     val textValueChange = _textValueChange.asStateFlow()
 
     /**
+     * SiteID state for search
+     */
+    private var _textSiteId: MutableStateFlow<String> = MutableStateFlow("")
+    val textSiteId = _textSiteId.asStateFlow()
+
+    /**
      * Set the text for product to search on TextField
      * @param newTextValueChange value change
      */
@@ -27,6 +33,18 @@ class SearchViewModel @Inject constructor(): ViewModel() {
             _textValueChange.value = newTextValueChange
         } else {
             _textValueChange.value = ""
+        }
+    }
+
+    /**
+     * Set the text for siteID to search on TextField
+     * @param siteId value change
+     */
+    fun onChangeValueSiteId(siteId: String) {
+        if (siteId.matches(Regex("^[a-zA-Z]*$"))) {
+            _textSiteId.value = siteId
+        } else {
+            _textSiteId.value = ""
         }
     }
 

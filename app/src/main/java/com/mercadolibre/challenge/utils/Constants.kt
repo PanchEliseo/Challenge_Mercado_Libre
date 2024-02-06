@@ -8,7 +8,7 @@ const val BASE_URL = "https://api.mercadolibre.com/"
 /**
  * Body url for service
  */
-const val API_BODY = "sites/MLM/search?"
+const val API_BODY = "sites/{site_id}/search?"
 
 /**
  * Search text in the url

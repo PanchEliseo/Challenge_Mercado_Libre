@@ -20,9 +20,10 @@ fun RootNavGraph(navController: NavHostController) {
         searchNavGraph(navController)
         composable(route = Graph.SEARCH) {
             SearchView(
-                onSearch = {
+                onSearch = { model ->
+                    navController.currentBackStackEntry?.savedStateHandle?.set("Model", model)
                     navController.navigate(
-                        route = SearchNavigation.Result.searchText(it)
+                        route = SearchNavigation.Result.route
                     )
                 }
             )

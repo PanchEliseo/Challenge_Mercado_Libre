@@ -36,4 +36,12 @@ class SearchViewModelTest {
             assertEquals(viewModel.textValueChange.value, awaitItem())
         }
     }
+
+    @Test
+    fun onChangeValueSiteId() = runTest {
+        viewModel.onChangeValueSiteId("MLM")
+        viewModel.textSiteId.test {
+            assertEquals(viewModel.textSiteId.value, awaitItem())
+        }
+    }
 }
