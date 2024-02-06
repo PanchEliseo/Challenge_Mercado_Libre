@@ -1,6 +1,7 @@
-package com.mercadolibre.challenge.domain.repository
+package com.mercadolibre.challenge.data.repository
 
 import com.mercadolibre.challenge.domain.model.Response
+import com.mercadolibre.challenge.domain.repository.SearchRepository
 import com.mercadolibre.challenge.domain.retrofit.search.SearchResponse
 import com.mercadolibre.challenge.domain.retrofit.SearchService
 import java.lang.Exception

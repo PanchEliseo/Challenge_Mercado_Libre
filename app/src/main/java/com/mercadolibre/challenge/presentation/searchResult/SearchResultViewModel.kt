@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.mercadolibre.challenge.domain.model.RequestSearch
 import com.mercadolibre.challenge.domain.model.Response
 import com.mercadolibre.challenge.domain.retrofit.search.SearchResponse
-import com.mercadolibre.challenge.domain.use_case.search.SearchUseCase
+import com.mercadolibre.challenge.use_case.search.SearchFacade
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,10 +15,10 @@ import javax.inject.Inject
 /**
  * [SearchResultViewModel] holds information about search result of product. It also knows to call
  * service based in search product
- * @param searchUseCase The use case to call service
+ * @param searchFacade The use case to call service
  */
 @HiltViewModel
-class SearchResultViewModel @Inject constructor(private val searchUseCase: SearchUseCase): ViewModel() {
+class SearchResultViewModel @Inject constructor(private val searchFacade: SearchFacade): ViewModel() {
 
     /**
      * Search result state
@@ -35,7 +35,7 @@ class SearchResultViewModel @Inject constructor(private val searchUseCase: Searc
             val request = RequestSearch.RequestBuilder(product)
                 .anotherParameter("Prueba")
                 .build()
-            _searchResultViewState.emit(searchUseCase.search(request))
+            _searchResultViewState.emit(searchFacade.searchUseCase(request))
         }
     }
 }

@@ -118,7 +118,7 @@ dependencies {
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.49")
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0-alpha01")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0-beta01")
     implementation("com.google.ar:core:1.41.0")
     kapt("com.google.dagger:hilt-android-compiler:2.49")
 
@@ -126,7 +126,6 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.5.0")
 
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.mockito:mockito-core:3.8.0")
     testImplementation("io.mockk:mockk:1.13.4")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.9.22")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
