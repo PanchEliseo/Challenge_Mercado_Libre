@@ -14,3 +14,5 @@ const val API_BODY = "sites/MLM/search?"
  * Search text in the url
  */
 const val SEARCH_TEXT = "q"
+
+const val EMPTY_LIST = "La lista de resultado esta vacia"

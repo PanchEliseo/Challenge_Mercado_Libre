@@ -1,5 +1,6 @@
 package com.mercadolibre.challenge.domain.repository
 
+import com.mercadolibre.challenge.data.repository.SearchRepositoryImp
 import com.mercadolibre.challenge.domain.model.Response
 import com.mercadolibre.challenge.domain.retrofit.SearchService
 import io.mockk.coEvery
