@@ -34,11 +34,10 @@ fun SearchView(
             )
         },
         content = {
-            SearchViewContent(
-                paddingValues = it,
+            SitesViewState(
                 viewModel = viewModel,
-                valueTextField = valueTextField.value,
-                valueSiteId = valueSiteId.value,
+                paddingValues = it,
+                valueTextField.value
             )
         },
         bottomBar = {

@@ -1,8 +1,8 @@
-package com.mercadolibre.challenge.domain.use_case.search
+package com.mercadolibre.challenge.use_case.search
 
 import com.mercadolibre.challenge.domain.model.RequestSearch
 import com.mercadolibre.challenge.domain.model.Response
-import com.mercadolibre.challenge.domain.repository.SearchRepository
+import com.mercadolibre.challenge.domain.repository.search.SearchRepository
 import com.mercadolibre.challenge.domain.retrofit.search.Results
 import com.mercadolibre.challenge.domain.retrofit.search.SearchResponse
 import com.mercadolibre.challenge.use_case.search.SearchUseCase
@@ -25,13 +25,17 @@ class SearchUseCaseTest {
 
     @Test
     fun `invoke repository when success and list get results`() = runTest {
-        val response = SearchResponse(results = listOf(Results(
-            title = "Test",
-            price = 110.50,
-            thumbnail = "",
-            currencyId = "",
-            attributes = listOf()
-        )))
+        val response = SearchResponse(
+            results = listOf(
+                Results(
+                    title = "Test",
+                    price = 110.50,
+                    thumbnail = "",
+                    currencyId = "",
+                    attributes = listOf()
+                )
+            )
+        )
         coEvery { repository.search(any()) } returns Response.Success(response)
         val request = RequestSearch.RequestBuilder("")
         searchUseCase.invoke(request.build())
