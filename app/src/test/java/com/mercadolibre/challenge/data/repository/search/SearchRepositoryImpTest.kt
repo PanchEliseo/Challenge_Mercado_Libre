@@ -1,6 +1,5 @@
-package com.mercadolibre.challenge.domain.repository
+package com.mercadolibre.challenge.data.repository.search
 
-import com.mercadolibre.challenge.data.repository.SearchRepositoryImp
 import com.mercadolibre.challenge.domain.model.RequestSearch
 import com.mercadolibre.challenge.domain.model.Response
 import com.mercadolibre.challenge.domain.retrofit.SearchService
@@ -8,9 +7,9 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 class SearchRepositoryImpTest {
 
@@ -36,7 +35,7 @@ class SearchRepositoryImpTest {
             }
         }
 
-        Assert.assertNotNull(resp)
+        assertNotNull(resp)
     }
 
     @Test
@@ -57,14 +56,15 @@ class SearchRepositoryImpTest {
                 listOf()
             }
         }
-        Assert.assertEquals(resp?.size, 0)
+        assertEquals(resp?.size, 0)
     }
 
     @Test
     fun `should emit empty when service response exception`() = runTest {
+        val message = "Exception"
         coEvery {
             service.search(any(), any())
-        } throws Exception("Exception")
+        } throws Exception(message)
         val responseBuilder = RequestSearch.RequestBuilder("")
         responseBuilder.siteId("")
         val resp = when (val response = repositoryImp.search(responseBuilder.build())){
@@ -79,6 +79,6 @@ class SearchRepositoryImpTest {
         coVerify {
             service.search(any(), any())
         }
-        assertEquals("Exception", resp)
+        assertEquals(message, resp)
     }
 }

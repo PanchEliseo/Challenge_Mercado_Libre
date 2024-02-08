@@ -1,11 +1,11 @@
-package com.mercadolibre.challenge.domain.repository
+package com.mercadolibre.challenge.domain.repository.search
 
 import com.mercadolibre.challenge.domain.model.RequestSearch
 import com.mercadolibre.challenge.domain.model.Response
 import com.mercadolibre.challenge.domain.retrofit.search.SearchResponse
 
 /**
- * Interface to call service
+ * Interface to call search service
  */
 interface SearchRepository {
     /**

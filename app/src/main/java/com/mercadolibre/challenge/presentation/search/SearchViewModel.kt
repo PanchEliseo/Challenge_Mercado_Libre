@@ -1,16 +1,23 @@
 package com.mercadolibre.challenge.presentation.search
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.mercadolibre.challenge.domain.model.Response
+import com.mercadolibre.challenge.domain.retrofit.sites.ResponseSites
+import com.mercadolibre.challenge.use_case.search.SearchFacade
+import com.mercadolibre.challenge.use_case.sites.SitesFacade
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
  * [SearchViewModel] holds information about screen for search
  */
 @HiltViewModel
-class SearchViewModel @Inject constructor(): ViewModel() {
+class SearchViewModel @Inject constructor(private val sitesFacade: SitesFacade): ViewModel() {
 
     /**
      * Product state for search
@@ -23,6 +30,12 @@ class SearchViewModel @Inject constructor(): ViewModel() {
      */
     private var _textSiteId: MutableStateFlow<String> = MutableStateFlow("")
     val textSiteId = _textSiteId.asStateFlow()
+
+    /**
+     * Sites state for DropDownMenu
+     */
+    private var _sites: MutableStateFlow<Response<MutableList<ResponseSites>>> = MutableStateFlow(Response.Loading)
+    val sites = _sites.asStateFlow()
 
     /**
      * Set the text for product to search on TextField
@@ -41,11 +54,14 @@ class SearchViewModel @Inject constructor(): ViewModel() {
      * @param siteId value change
      */
     fun onChangeValueSiteId(siteId: String) {
-        if (siteId.matches(Regex("^[a-zA-Z]*$"))) {
-            _textSiteId.value = siteId
-        } else {
-            _textSiteId.value = ""
-        }
+        _textSiteId.value = siteId
     }
 
+    /**
+     * Get sites to options for search
+     */
+    fun getSites() = viewModelScope.launch {
+        _sites.emit(Response.Loading)
+        _sites.emit(sitesFacade.sitesUseCase())
+    }
 }

@@ -2,7 +2,7 @@ package com.mercadolibre.challenge.use_case.search
 
 import com.mercadolibre.challenge.domain.model.RequestSearch
 import com.mercadolibre.challenge.domain.model.Response
-import com.mercadolibre.challenge.domain.repository.SearchRepository
+import com.mercadolibre.challenge.domain.repository.search.SearchRepository
 import com.mercadolibre.challenge.domain.retrofit.search.SearchResponse
 import com.mercadolibre.challenge.utils.EMPTY_LIST
 import javax.inject.Inject

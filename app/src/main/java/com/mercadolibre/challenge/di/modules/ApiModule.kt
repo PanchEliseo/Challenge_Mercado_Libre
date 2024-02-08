@@ -1,9 +1,12 @@
 package com.mercadolibre.challenge.di.modules
 
-import com.mercadolibre.challenge.data.repository.SearchRepositoryImp
+import com.mercadolibre.challenge.data.repository.search.SearchRepositoryImp
+import com.mercadolibre.challenge.data.repository.sites.SitesRepositoryImp
 import com.mercadolibre.challenge.domain.retrofit.SearchService
 import com.mercadolibre.challenge.use_case.search.SearchUseCase
 import com.mercadolibre.challenge.use_case.search.SearchFacade
+import com.mercadolibre.challenge.use_case.sites.SitesFacade
+import com.mercadolibre.challenge.use_case.sites.SitesUseCase
 import com.mercadolibre.challenge.utils.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -71,13 +74,23 @@ object ApiModule {
     @Provides
     fun provideSearchRepository(service: SearchService) = SearchRepositoryImp(service)
 
+    @Singleton
+    @Provides
+    fun provideSitesRepository(service: SearchService) = SitesRepositoryImp(service)
+
     /**
      * Provider for use case
-     * @param repository The repository instance
+     * @param repository The repository search instance
      */
     @Singleton
     @Provides
     fun provideSearchUseCase(repository: SearchRepositoryImp) = SearchFacade(
         searchUseCase = SearchUseCase(repository)
+    )
+
+    @Singleton
+    @Provides
+    fun provideSitesUseCase(repositoryImp: SitesRepositoryImp) = SitesFacade(
+        sitesUseCase = SitesUseCase(repositoryImp)
     )
 }
