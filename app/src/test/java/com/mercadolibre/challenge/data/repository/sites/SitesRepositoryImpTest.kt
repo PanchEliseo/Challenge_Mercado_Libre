@@ -8,6 +8,7 @@ import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
+import java.net.UnknownHostException
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
@@ -46,7 +47,7 @@ class SitesRepositoryImpTest {
         val message = "Exception"
         coEvery {
             service.getSites()
-        } throws Exception(message)
+        } throws UnknownHostException(message)
         val resp = when (val response = repositoryImp.getSites()) {
             is Response.Failure -> {
                 response.exception?.message
