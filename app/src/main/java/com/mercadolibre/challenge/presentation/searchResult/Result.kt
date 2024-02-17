@@ -9,7 +9,7 @@ import com.mercadolibre.challenge.domain.model.Response
 import com.mercadolibre.challenge.domain.retrofit.search.Results
 import com.mercadolibre.challenge.presentation.model.SearchModel
 import com.mercadolibre.challenge.presentation.searchResult.components.ProgressBar
-import com.mercadolibre.challenge.presentation.searchResult.components.SearchError
+import com.mercadolibre.challenge.presentation.components.MELIErrorText
 import com.mercadolibre.challenge.presentation.searchResult.components.SearchResultContent
 
 /**
@@ -42,7 +42,7 @@ fun SearchResult(
             }
         }
         is Response.Failure -> {
-            SearchError(searchResponse.exception?.message!!, paddingValues)
+            MELIErrorText(searchResponse.exception?.message!!, paddingValues)
         }
 
         else -> {}

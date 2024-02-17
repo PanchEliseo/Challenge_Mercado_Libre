@@ -1,11 +1,10 @@
-package com.mercadolibre.challenge.use_case.search
+package com.mercadolibre.challenge.useCase.search
 
 import com.mercadolibre.challenge.domain.model.RequestSearch
 import com.mercadolibre.challenge.domain.model.Response
 import com.mercadolibre.challenge.domain.repository.search.SearchRepository
 import com.mercadolibre.challenge.domain.retrofit.search.Results
 import com.mercadolibre.challenge.domain.retrofit.search.SearchResponse
-import com.mercadolibre.challenge.use_case.search.SearchUseCase
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

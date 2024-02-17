@@ -3,7 +3,7 @@ package com.mercadolibre.challenge.presentation.searchResult
 import app.cash.turbine.test
 import com.mercadolibre.challenge.domain.model.Response
 import com.mercadolibre.challenge.domain.retrofit.search.SearchResponse
-import com.mercadolibre.challenge.use_case.search.SearchFacade
+import com.mercadolibre.challenge.useCase.search.SearchFacade
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -14,7 +14,7 @@ import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 

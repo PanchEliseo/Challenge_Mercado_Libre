@@ -2,7 +2,7 @@ package com.mercadolibre.challenge.presentation.search
 
 import app.cash.turbine.test
 import com.mercadolibre.challenge.domain.model.Response
-import com.mercadolibre.challenge.use_case.sites.SitesFacade
+import com.mercadolibre.challenge.useCase.sites.SitesFacade
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

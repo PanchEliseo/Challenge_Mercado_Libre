@@ -1,10 +1,12 @@
-package com.mercadolibre.challenge.use_case.search
+package com.mercadolibre.challenge.useCase.search
 
 import com.mercadolibre.challenge.domain.model.RequestSearch
 import com.mercadolibre.challenge.domain.model.Response
+import com.mercadolibre.challenge.domain.model.ValidationException
 import com.mercadolibre.challenge.domain.repository.search.SearchRepository
 import com.mercadolibre.challenge.domain.retrofit.search.SearchResponse
 import com.mercadolibre.challenge.utils.EMPTY_LIST
+import com.mercadolibre.challenge.utils.SERVER_FAILURE
 import javax.inject.Inject
 
 /**
@@ -17,22 +19,24 @@ class SearchUseCase @Inject constructor(private val repository: SearchRepository
      * @param request The data class with request to search
      */
     suspend operator fun invoke(request: RequestSearch): Response<SearchResponse> {
+        val responseFinal: Response<SearchResponse>
         when (val response = repository.search(request)) {
             is Response.Success -> {
                 val data = response.data.results ?: emptyList()
-                return if (data.isNotEmpty()) {
+                responseFinal = if (data.isNotEmpty()) {
                     response
                 } else {
-                    Response.Failure(Exception(EMPTY_LIST))
+                    Response.Failure(ValidationException.ServerException(EMPTY_LIST))
                 }
             }
             is Response.Failure -> {
-                val exception = response.exception ?: Exception()
-                return Response.Failure(exception)
+                val exception = response.exception ?: ValidationException.ServerException(SERVER_FAILURE)
+                responseFinal = Response.Failure(exception)
             }
             else -> {
-                return Response.Failure(Exception(EMPTY_LIST))
+                responseFinal = Response.Failure(ValidationException.ServerException(EMPTY_LIST))
             }
         }
+        return responseFinal
     }
 }

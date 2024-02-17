@@ -24,3 +24,8 @@ const val API_BODY_SITES = "sites"
  * Empty list value
  */
 const val EMPTY_LIST = "La lista de resultado esta vacia"
+
+/**
+ * Server failure
+ */
+const val SERVER_FAILURE = "Ocurrio un fallo en el servicio"

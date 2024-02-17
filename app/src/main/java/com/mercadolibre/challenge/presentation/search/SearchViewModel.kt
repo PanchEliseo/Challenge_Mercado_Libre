@@ -1,13 +1,12 @@
 package com.mercadolibre.challenge.presentation.search
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mercadolibre.challenge.domain.model.Response
 import com.mercadolibre.challenge.domain.retrofit.sites.ResponseSites
-import com.mercadolibre.challenge.use_case.search.SearchFacade
-import com.mercadolibre.challenge.use_case.sites.SitesFacade
+import com.mercadolibre.challenge.useCase.sites.SitesFacade
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -60,7 +59,7 @@ class SearchViewModel @Inject constructor(private val sitesFacade: SitesFacade):
     /**
      * Get sites to options for search
      */
-    fun getSites() = viewModelScope.launch {
+    fun getSites() = viewModelScope.launch(Dispatchers.IO) {
         _sites.emit(Response.Loading)
         _sites.emit(sitesFacade.sitesUseCase())
     }

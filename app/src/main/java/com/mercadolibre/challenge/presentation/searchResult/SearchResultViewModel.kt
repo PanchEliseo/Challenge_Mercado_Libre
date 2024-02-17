@@ -5,8 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.mercadolibre.challenge.domain.model.RequestSearch
 import com.mercadolibre.challenge.domain.model.Response
 import com.mercadolibre.challenge.domain.retrofit.search.SearchResponse
-import com.mercadolibre.challenge.use_case.search.SearchFacade
+import com.mercadolibre.challenge.useCase.search.SearchFacade
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -31,7 +32,7 @@ class SearchResultViewModel @Inject constructor(private val searchFacade: Search
      * @param product The product to search
      */
     fun searchProducts(product: String, siteId: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _searchResultViewState.emit(Response.Loading)
             val request = RequestSearch.RequestBuilder(product)
                 .siteId(siteId.uppercase())

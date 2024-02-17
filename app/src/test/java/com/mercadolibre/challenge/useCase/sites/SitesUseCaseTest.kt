@@ -1,4 +1,4 @@
-package com.mercadolibre.challenge.use_case.sites
+package com.mercadolibre.challenge.useCase.sites
 
 import com.mercadolibre.challenge.domain.model.Response
 import com.mercadolibre.challenge.domain.repository.sites.SiteRepository

@@ -1,4 +1,4 @@
-package com.mercadolibre.challenge.use_case.search
+package com.mercadolibre.challenge.useCase.search
 
 /**
  * Represent the facade for use case at invokes services

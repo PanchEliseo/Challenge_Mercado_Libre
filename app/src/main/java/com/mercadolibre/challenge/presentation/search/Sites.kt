@@ -1,11 +1,11 @@
 package com.mercadolibre.challenge.presentation.search
 
-import android.util.Log
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import com.mercadolibre.challenge.domain.model.Response
+import com.mercadolibre.challenge.presentation.components.MELIErrorText
 import com.mercadolibre.challenge.presentation.search.components.SearchViewContent
 import com.mercadolibre.challenge.presentation.searchResult.components.ProgressBar
 
@@ -32,7 +32,7 @@ fun SitesViewState(
             )
         }
         is Response.Failure -> {
-            Log.i("Sites", "${result.exception?.message}")
+            MELIErrorText(result.exception?.message!!, paddingValues)
         }
     }
 }

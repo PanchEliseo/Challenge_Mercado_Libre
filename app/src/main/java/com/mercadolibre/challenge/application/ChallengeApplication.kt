@@ -7,5 +7,4 @@ import dagger.hilt.android.HiltAndroidApp
  * The application for project
  */
 @HiltAndroidApp
-class ChallengeApplication: Application() {
-}
+class ChallengeApplication: Application()
