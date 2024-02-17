@@ -5,4 +5,5 @@ plugins {
     id("com.google.dagger.hilt.android") version "2.49" apply false
     id("org.jetbrains.dokka") version "1.5.0" apply false
     id("org.jetbrains.kotlin.kapt") version "1.8.0" apply false
+    id("io.gitlab.arturbosch.detekt") version "1.23.5" apply false
 }

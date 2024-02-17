@@ -7,6 +7,7 @@ plugins {
     id("org.jetbrains.dokka")
     kotlin("kapt")
     jacoco
+    id("io.gitlab.arturbosch.detekt")
 }
 
 android {
@@ -33,7 +34,8 @@ android {
             }
         }
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -118,7 +120,7 @@ dependencies {
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.49")
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0-beta01")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0-rc01")
     implementation("com.google.ar:core:1.41.0")
     kapt("com.google.dagger:hilt-android-compiler:2.49")
 
@@ -135,7 +137,7 @@ dependencies {
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     androidTestImplementation("androidx.compose.ui:ui-test")
-    androidTestImplementation("androidx.navigation:navigation-testing:2.7.6")
+    androidTestImplementation("androidx.navigation:navigation-testing:2.7.7")
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.45")
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.49")
     kaptTest("com.google.dagger:hilt-android-compiler:2.49")

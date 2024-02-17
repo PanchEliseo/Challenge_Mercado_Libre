@@ -3,10 +3,10 @@ package com.mercadolibre.challenge.di.modules
 import com.mercadolibre.challenge.data.repository.search.SearchRepositoryImp
 import com.mercadolibre.challenge.data.repository.sites.SitesRepositoryImp
 import com.mercadolibre.challenge.domain.retrofit.SearchService
-import com.mercadolibre.challenge.use_case.search.SearchUseCase
-import com.mercadolibre.challenge.use_case.search.SearchFacade
-import com.mercadolibre.challenge.use_case.sites.SitesFacade
-import com.mercadolibre.challenge.use_case.sites.SitesUseCase
+import com.mercadolibre.challenge.useCase.search.SearchUseCase
+import com.mercadolibre.challenge.useCase.search.SearchFacade
+import com.mercadolibre.challenge.useCase.sites.SitesFacade
+import com.mercadolibre.challenge.useCase.sites.SitesUseCase
 import com.mercadolibre.challenge.utils.BASE_URL
 import dagger.Module
 import dagger.Provides

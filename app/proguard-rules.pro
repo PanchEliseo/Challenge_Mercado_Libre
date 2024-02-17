@@ -19,3 +19,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Here keep response of service
+-keep class com.mercadolibre.challenge.domain.retrofit.search.*
+-keep class com.mercadolibre.challenge.domain.retrofit.sites.*

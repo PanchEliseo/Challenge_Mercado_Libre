@@ -5,7 +5,7 @@ import com.mercadolibre.challenge.domain.model.Response
 import com.mercadolibre.challenge.domain.repository.search.SearchRepository
 import com.mercadolibre.challenge.domain.retrofit.search.SearchResponse
 import com.mercadolibre.challenge.domain.retrofit.SearchService
-import java.lang.Exception
+import java.net.UnknownHostException
 
 /**
  * Repository implement to call service and receive response
@@ -21,8 +21,7 @@ class SearchRepositoryImp(private val service: SearchService): SearchRepository 
         return try {
             val result = service.search(siteId = product.siteId, search = product.product)
             Response.Success(result)
-        } catch (e: Exception) {
-            e.printStackTrace()
+        } catch (e: UnknownHostException) {
             Response.Failure(e)
         }
     }

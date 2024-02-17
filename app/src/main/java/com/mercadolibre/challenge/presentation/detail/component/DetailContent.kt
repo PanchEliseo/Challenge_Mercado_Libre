@@ -38,55 +38,60 @@ fun DetailContent(
             .padding(paddingValues)
             .verticalScroll(rememberScrollState()),
     ) {
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(results.thumbnail)
-                .crossfade(true)
-                .build(),
-            modifier = Modifier
-                .height(250.dp)
-                .fillMaxWidth()
-                .padding(start = 5.dp, end = 5.dp),
-            contentDescription = "Image detail product",
-            contentScale = ContentScale.Crop
-        )
+        ColumnContent(results = results)
+    }
+}
+
+@Composable
+fun ColumnContent(results: Results) {
+    AsyncImage(
+        model = ImageRequest.Builder(LocalContext.current)
+            .data(results.thumbnail)
+            .crossfade(true)
+            .build(),
+        modifier = Modifier
+            .height(250.dp)
+            .fillMaxWidth()
+            .padding(start = 5.dp, end = 5.dp),
+        contentDescription = "Image detail product",
+        contentScale = ContentScale.Crop
+    )
+    Text(
+        text = results.title,
+        style = MaterialTheme.typography.titleLarge,
+        modifier = Modifier
+            .padding(start = 10.dp, end = 10.dp)
+    )
+    Text(
+        text = stringResource(id = R.string.label_price, results.price),
+        style = MaterialTheme.typography.titleMedium,
+        modifier = Modifier
+            .padding(start = 10.dp, end = 10.dp)
+    )
+    val processor = results.attributes.find {
+        it.id == "PROCESSOR_MODEL"
+    }
+    processor?.let {
         Text(
-            text = results.title,
-            style = MaterialTheme.typography.titleLarge,
+            text = stringResource(id = R.string.label_know),
+            style = MaterialTheme.typography.titleSmall,
             modifier = Modifier
                 .padding(start = 10.dp, end = 10.dp)
         )
         Text(
-            text = stringResource(id = R.string.label_price, results.price),
-            style = MaterialTheme.typography.titleMedium,
+            text = it.name+": "+it.valueName,
             modifier = Modifier
                 .padding(start = 10.dp, end = 10.dp)
         )
-        val processor = results.attributes.find {
-            it.id == "PROCESSOR_MODEL"
-        }
-        processor?.let {
-            Text(
-                text = stringResource(id = R.string.label_know),
-                style = MaterialTheme.typography.titleSmall,
-                modifier = Modifier
-                    .padding(start = 10.dp, end = 10.dp)
-            )
-            Text(
-                text = it.name+": "+it.valueName,
-                modifier = Modifier
-                    .padding(start = 10.dp, end = 10.dp)
-            )
-        }
-        val gpuModel = results.attributes.find {
-            it.id == "GPU_MODEL"
-        }
-        gpuModel?.let {
-            Text(
-                text = it.name+": "+it.valueName,
-                modifier = Modifier
-                    .padding(start = 10.dp, end = 10.dp)
-            )
-        }
+    }
+    val gpuModel = results.attributes.find {
+        it.id == "GPU_MODEL"
+    }
+    gpuModel?.let {
+        Text(
+            text = it.name+": "+it.valueName,
+            modifier = Modifier
+                .padding(start = 10.dp, end = 10.dp)
+        )
     }
 }
