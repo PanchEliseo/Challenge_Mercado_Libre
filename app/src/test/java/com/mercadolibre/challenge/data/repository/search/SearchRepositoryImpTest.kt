@@ -8,6 +8,7 @@ import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
+import java.net.UnknownHostException
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
@@ -64,7 +65,7 @@ class SearchRepositoryImpTest {
         val message = "Exception"
         coEvery {
             service.search(any(), any())
-        } throws Exception(message)
+        } throws UnknownHostException(message)
         val responseBuilder = RequestSearch.RequestBuilder("")
         responseBuilder.siteId("")
         val resp = when (val response = repositoryImp.search(responseBuilder.build())){
