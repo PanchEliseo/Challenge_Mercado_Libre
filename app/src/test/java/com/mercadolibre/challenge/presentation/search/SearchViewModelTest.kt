@@ -2,6 +2,7 @@ package com.mercadolibre.challenge.presentation.search
 
 import app.cash.turbine.test
 import com.mercadolibre.challenge.domain.model.Response
+import com.mercadolibre.challenge.presentation.intent.SiteDashboardIntent
 import com.mercadolibre.challenge.useCase.sites.SitesFacade
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -64,7 +65,7 @@ class SearchViewModelTest {
         coEvery {
             sitesFacade.sitesUseCase()
         } returns Response.Success(mutableListOf())
-        viewModel.getSites()
+        viewModel.sitesIntent.send(SiteDashboardIntent.SearchSites)
         coVerify {
             sitesFacade.sitesUseCase()
         }
@@ -78,7 +79,7 @@ class SearchViewModelTest {
         coEvery {
             sitesFacade.sitesUseCase()
         } returns Response.Failure(Exception())
-        viewModel.getSites()
+        viewModel.sitesIntent.send(SiteDashboardIntent.SearchSites)
         coVerify {
             sitesFacade.sitesUseCase()
         }

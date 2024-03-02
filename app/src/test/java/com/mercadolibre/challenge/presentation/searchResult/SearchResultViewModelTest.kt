@@ -3,6 +3,7 @@ package com.mercadolibre.challenge.presentation.searchResult
 import app.cash.turbine.test
 import com.mercadolibre.challenge.domain.model.Response
 import com.mercadolibre.challenge.domain.retrofit.search.SearchResponse
+import com.mercadolibre.challenge.presentation.intent.SearchDashboardIntent
 import com.mercadolibre.challenge.useCase.search.SearchFacade
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -41,7 +42,7 @@ class SearchResultViewModelTest {
         coEvery {
             searchFacade.searchUseCase(any())
         } returns Response.Success(SearchResponse())
-        viewModel.searchProducts(product = "Motorola", siteId = "MLM")
+        viewModel.searchIntent.send(SearchDashboardIntent.SearchProduct("Motorola", "MLM"))
         coVerify {
             searchFacade.searchUseCase(any())
         }
@@ -55,7 +56,7 @@ class SearchResultViewModelTest {
         coEvery {
             searchFacade.searchUseCase(any())
         } returns Response.Success(SearchResponse())
-        viewModel.searchProducts("", "")
+        viewModel.searchIntent.send(SearchDashboardIntent.SearchProduct("", ""))
         coVerify {
             searchFacade.searchUseCase(any())
         }
@@ -69,7 +70,7 @@ class SearchResultViewModelTest {
         coEvery {
             searchFacade.searchUseCase(any())
         } returns Response.Failure(Exception())
-        viewModel.searchProducts("", "")
+        viewModel.searchIntent.send(SearchDashboardIntent.SearchProduct("", ""))
         coVerify {
             searchFacade.searchUseCase(any())
         }
@@ -83,7 +84,7 @@ class SearchResultViewModelTest {
         coEvery {
             searchFacade.searchUseCase(any())
         } returns Response.Failure(Exception("Exception"))
-        viewModel.searchProducts("Motorola", "MLM")
+        viewModel.searchIntent.send(SearchDashboardIntent.SearchProduct("Motorola", "MLM"))
         coVerify {
             searchFacade.searchUseCase(any())
         }
@@ -97,7 +98,7 @@ class SearchResultViewModelTest {
         coEvery {
             searchFacade.searchUseCase(any())
         } returns Response.Failure(null)
-        viewModel.searchProducts("Motorola", "MLM")
+        viewModel.searchIntent.send(SearchDashboardIntent.SearchProduct("Motorola", "MLM"))
         coVerify {
             searchFacade.searchUseCase(any())
         }
