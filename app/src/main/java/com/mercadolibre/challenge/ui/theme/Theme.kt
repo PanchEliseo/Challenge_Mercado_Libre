@@ -16,13 +16,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
-private val DarkColorScheme = darkColorScheme(
+private val _darkColorScheme = darkColorScheme(
     primary = Yellow40,
     secondary = PurpleGrey80,
     tertiary = Pink80
 )
 
-private val LightColorScheme = lightColorScheme(
+private val _lightColorScheme = lightColorScheme(
     primary = Yellow40,
     secondary = PurpleGrey40,
     tertiary = Pink40
@@ -51,8 +51,8 @@ fun ChallengeTheme(
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        darkTheme -> _darkColorScheme
+        else -> _lightColorScheme
     }
     val view = LocalView.current
     if (!view.isInEditMode) {
