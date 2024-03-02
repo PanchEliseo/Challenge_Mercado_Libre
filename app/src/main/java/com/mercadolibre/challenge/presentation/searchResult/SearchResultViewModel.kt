@@ -48,7 +48,7 @@ class SearchResultViewModel @Inject constructor(private val searchFacade: Search
      * Search product in service
      * @param product The product to search
      */
-    fun searchProducts(product: String, siteId: String) {
+    private fun searchProducts(product: String, siteId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _searchResultViewState.emit(Response.Loading)
             val request = RequestSearch.RequestBuilder(product)
