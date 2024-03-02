@@ -6,6 +6,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import com.mercadolibre.challenge.domain.model.Response
 import com.mercadolibre.challenge.presentation.components.MELIErrorText
+import com.mercadolibre.challenge.presentation.intent.SearchDashboardIntent
+import com.mercadolibre.challenge.presentation.intent.SiteDashboardIntent
 import com.mercadolibre.challenge.presentation.search.components.SearchViewContent
 import com.mercadolibre.challenge.presentation.searchResult.components.ProgressBar
 
@@ -16,7 +18,7 @@ fun SitesViewState(
     valueTextField: String,
 ) {
     LaunchedEffect(Unit) {
-        viewModel.getSites()
+        viewModel.sitesIntent.send(SiteDashboardIntent.SearchSites)
     }
     val response = viewModel.sites.collectAsState(Response.Loading)
     when (val result = response.value) {

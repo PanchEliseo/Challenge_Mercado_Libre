@@ -10,6 +10,7 @@ import com.mercadolibre.challenge.domain.retrofit.search.Results
 import com.mercadolibre.challenge.presentation.model.SearchModel
 import com.mercadolibre.challenge.presentation.searchResult.components.ProgressBar
 import com.mercadolibre.challenge.presentation.components.MELIErrorText
+import com.mercadolibre.challenge.presentation.intent.SearchDashboardIntent
 import com.mercadolibre.challenge.presentation.searchResult.components.SearchResultContent
 
 /**
@@ -25,7 +26,7 @@ fun SearchResult(
     viewModel: SearchResultViewModel = hiltViewModel()
 ) {
     LaunchedEffect(Unit) {
-        viewModel.searchProducts(siteId = model.siteId, product = model.search)
+        viewModel.searchIntent.send(SearchDashboardIntent.SearchProduct(product = model.search, siteId = model.siteId))
     }
     val response = viewModel.searchResultViewState.collectAsState(initial = Response.Loading)
     when (val searchResponse = response.value) {

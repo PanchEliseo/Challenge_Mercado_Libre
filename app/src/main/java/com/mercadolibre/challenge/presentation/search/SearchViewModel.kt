@@ -4,11 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mercadolibre.challenge.domain.model.Response
 import com.mercadolibre.challenge.domain.retrofit.sites.ResponseSites
+import com.mercadolibre.challenge.presentation.intent.SiteDashboardIntent
 import com.mercadolibre.challenge.useCase.sites.SitesFacade
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,6 +20,8 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class SearchViewModel @Inject constructor(private val sitesFacade: SitesFacade): ViewModel() {
+
+    val sitesIntent = Channel<SiteDashboardIntent>(Channel.UNLIMITED)
 
     /**
      * Product state for search
@@ -35,6 +40,10 @@ class SearchViewModel @Inject constructor(private val sitesFacade: SitesFacade):
      */
     private var _sites: MutableStateFlow<Response<MutableList<ResponseSites>>> = MutableStateFlow(Response.Loading)
     val sites = _sites.asStateFlow()
+
+    init {
+        getSites()
+    }
 
     /**
      * Set the text for product to search on TextField
@@ -59,7 +68,15 @@ class SearchViewModel @Inject constructor(private val sitesFacade: SitesFacade):
     /**
      * Get sites to options for search
      */
-    fun getSites() = viewModelScope.launch(Dispatchers.IO) {
+    private fun getSites() = viewModelScope.launch(Dispatchers.IO) {
+        sitesIntent.consumeAsFlow().collect {
+            when (it) {
+                is SiteDashboardIntent.SearchSites -> searchSites()
+            }
+        }
+    }
+
+    private fun searchSites() = viewModelScope.launch(Dispatchers.IO) {
         _sites.emit(Response.Loading)
         _sites.emit(sitesFacade.sitesUseCase())
     }
